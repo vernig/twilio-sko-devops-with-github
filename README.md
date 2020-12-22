@@ -150,7 +150,7 @@ jobs:
           CI: true
 
 ```
-<details>
+</details>
         
 # Step 8 - Create a new deployment
         
@@ -158,4 +158,38 @@ jobs:
 * Click on "Compare & pull request"
 * Wait for the test to be executed 
 * Click on merge 
-        
+
+# Step 9 - Add Secrets for Twilio SMS 
+
+Open the secret page in the repo settings and create the following secrets: 
+
+* `TWILIO_ACCOUNT_SID`: this is your Twilio account SID or your API key
+* `TWILIO_AUTH_TOKEN`: this is your Twilio auth token or your API secret
+* `TWILIO_SMS_API_KEY`: this is an API to send SMS (create one at https://www.twilio.com/console/sms/project/api-keys)
+* `TWILIO_SMS_SECRET_KEY`: this is the secret for the API key created above
+* `TWILIO_SMS_FROM`: Phone number in your Twilio account to send the SMS from
+* `TWILIO_SMS_TO`: Phone number to send the SMS to
+
+# Step 10 - Add Twilio SMS notification 
+
+Open the `.github/workflows/deploy.yaml` and add the content of the snippets below to the file: 
+<details>
+        <summary><b>Click here to view file contents to copy:</b></summary>
+```yaml
+  notify:
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+      - name: Send an SMS through Twilio
+        uses: twilio-labs/actions-sms@v1
+        with:
+          fromPhoneNumber: ${{ secrets.TWILIO_SMS_FROM }}
+          toPhoneNumber: ${{ secrets.TWILIO_SMS_TO }}
+          message: '🚢 Deployment successful 🎉'
+        env:
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_API_KEY: ${{ secrets.TWILIO_SMS_API_KEY }}
+          TWILIO_API_SECRET: ${{ secrets.TWILIO_SMS_API_SECRET }}
+```
+</details>
