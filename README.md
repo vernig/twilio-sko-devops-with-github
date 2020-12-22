@@ -172,7 +172,7 @@ Open the secret page in the repo settings and create the following secrets:
 
 # Step 10 - Add Twilio SMS notification 
 
-Open the `.github/workflows/deploy.yaml` and add the content of the snippets below to the file: 
+Open the `.github/workflows/deploy.yaml` and add the content of the snippets below to the file (careful with the two blank spaces before `notify`): 
 <details>
         <summary><b>Click here to view file contents to copy:</b></summary>
         
