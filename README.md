@@ -175,6 +175,7 @@ Open the secret page in the repo settings and create the following secrets:
 Open the `.github/workflows/deploy.yaml` and add the content of the snippets below to the file: 
 <details>
         <summary><b>Click here to view file contents to copy:</b></summary>
+        
 ```yaml
   notify:
     runs-on: ubuntu-latest
