@@ -103,3 +103,59 @@ jobs:
  </details>
  
  After committing this file, open the action and see the test running. 
+ 
+ # Step 6 - Add Secretes
+ 
+ * In the repo click on Settings 
+ * Click on "Secrets" in the lef side bar
+ * Click on "New repository secret"
+ * Add two secrets: 
+   * `TWILIO_ACCOUNT_SID`
+   * `TWILIO_AUTH_TOKEN`
+ 
+ # Step 7 - Add script for deployment 
+ 
+Add a file named `deploy.yaml` in the folder `.github/workflows`. Paste the content of the snippet below and commit: 
+<details>
+        <summary><b>Click here to view file contents to copy:</b></summary>
+
+```yaml
+name: Deployment to Twilio Serverless
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest]
+        node-version: [10]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install and deploy
+        run: |
+          npm install
+          npm run deploy -- --account-sid ${{secrets.TWILIO_ACCOUNT_SID}} --auth-token ${{secrets.TWILIO_AUTH_TOKEN}} --override-existing-project
+        env:
+          CI: true
+
+```
+<details>
+        
+# Step 8 - Create a new deployment
+        
+* Switch to `main` branch 
+* Click on "Compare & pull request"
+* Wait for the test to be executed 
+* Click on merge 
+        
