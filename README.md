@@ -1,5 +1,7 @@
 # Repo for DevOps with GitHub hands-on session
 
+This repo has been created using twilio CLI for serverless. The only thing added to the repo is dependency to `jest` and the `jest` test script. 
+
 # Step 1 - Fork repo 
 
 Fork this repo using the fork button on the top right of this page
@@ -8,33 +10,7 @@ Fork this repo using the fork button on the top right of this page
 
 Click on branch and create a new branch called `automated-testing`
 
-# Step 3 - Add Jest
-
-Add Jest as dependency in your `package.json` and create a new test script. See lines 9 and 14 below (don't forget to add a comma "," in the line before):
-
-<pre>
-1  {
-2   "name": "twilio-sko-devops-with-github",
-3   "version": "0.0.0",
-4   "private": true,
-5   "scripts": {
-6     "test": "echo \"Error: no test specified\" && exit 1",
-7     "start": "twilio-run",
-8     "deploy": "twilio-run deploy",
-9     "jest": "jest"
-10   },
-11   "dependencies": {},
-12   "devDependencies": {
-13     "twilio-run": "^2.6.0",
-14     "jest": "^26.5.2"
-15   },
-16   "engines": {
-17     "node": "10"
-18   }
-19 }
-</pre>
-
-# Step 4 - Add a jest test script
+# Step 3 - Add a jest test script
 
 Create a folder `__tests__` and create a file named `hello_world.test.js`. Copy the content from the file below: 
 
@@ -65,7 +41,7 @@ describe('Test voice response TwiML', () => {
 ```
  </details>
  
- # Step 5 - Add GitHub Action for testing
+ # Step 4 - Add GitHub Action for testing
  
  Create a new folder `.github/workflows`. In this folder create a new file named `test.yml`. Past the content from the snippet below: 
  
@@ -104,7 +80,7 @@ jobs:
  
  After committing this file, open the action and see the test running. 
  
- # Step 6 - Add Secretes
+ # Step 5 - Add Secretes
  
  * In the repo click on Settings 
  * Click on "Secrets" in the lef side bar
@@ -113,7 +89,7 @@ jobs:
    * `TWILIO_ACCOUNT_SID`
    * `TWILIO_AUTH_TOKEN`
  
- # Step 7 - Add script for deployment 
+ # Step 6 - Add script for deployment 
  
 Add a file named `deploy.yaml` in the folder `.github/workflows`. Paste the content of the snippet below and commit: 
 <details>
@@ -152,14 +128,14 @@ jobs:
 ```
 </details>
         
-# Step 8 - Create a new deployment
+# Step 7 - Create a new deployment
         
 * Switch to `main` branch 
 * Click on "Compare & pull request"
 * Wait for the test to be executed 
 * Click on merge 
 
-# Step 9 - Add Secrets for Twilio SMS 
+# Step 8 - Add Secrets for Twilio SMS 
 
 Open the secret page in the repo settings and create the following secrets: 
 
@@ -170,7 +146,7 @@ Open the secret page in the repo settings and create the following secrets:
 * `TWILIO_SMS_FROM`: Phone number in your Twilio account to send the SMS from
 * `TWILIO_SMS_TO`: Phone number to send the SMS to
 
-# Step 10 - Add Twilio SMS notification 
+# Step 9 - Add Twilio SMS notification 
 
 Open the `.github/workflows/deploy.yaml` and add the content of the snippets below to the file (careful with the two blank spaces before `notify`): 
 <details>
