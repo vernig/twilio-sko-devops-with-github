@@ -2,9 +2,9 @@
 
 This repo has been created using twilio CLI for serverless. The only thing added is the dependency to `jest` and the `jest` test script. 
 
-# Step 1 - Fork repo 
+# Step 1 - Create a new repo based on this 
 
-Fork this repo using the fork button on the top right of this page
+Create a new repo on your profile clicking on "Use this template" button
 
 # Step 2 - Create a new branch 
 
