@@ -1,0 +1,25 @@
+name: Twilio Serverless testing
+
+on: [pull_request, push]
+
+jobs:
+ test:
+   runs-on: ${{ matrix.os }}
+   strategy:
+     matrix:
+       os: [macos-latest]
+       node-version: [10]
+
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v1
+     - name: Use Node.js version ${{ matrix.node-version }}
+       uses: actions/setup-node@v1
+       with:
+         node-version: ${{ matrix.node-version }}
+     - name: npm install, build, and test
+       run: |
+         npm install
+         npm run jest
+       env:
+         CI: true
